@@ -35,12 +35,8 @@ export default function HomePage() {
       onClick={handleStartAudio} // first gesture activates audio engine
     >
       <GlassPanel>
-        <PageHeader
-          title='Tiny Lo-Fi Machine'
-          subtitle='Focus Better. Feel Better.'
-        />
+        <PageHeader title='Pico-Fi' subtitle='Focus better. Feel better.' />
 
-        {/* FEATURED SOUND: Rain */}
         <SoundTileWithSlider
           label='Drums'
           on={rain.on}
@@ -49,7 +45,6 @@ export default function HomePage() {
           onVolumeChange={(v) => rain.setVolume(v / 100)}
         />
 
-        {/* ROW: Vinyl / Piano */}
         <SoundTileWithSlider
           label='Guitar'
           on={vinyl.on}
@@ -62,30 +57,30 @@ export default function HomePage() {
           label='Piano'
           on={piano.on}
           onToggle={piano.toggle}
-          volume={Math.round(vinyl.volume * 100)}
-          onVolumeChange={(v) => vinyl.setVolume(v / 100)}
+          volume={Math.round(piano.volume * 100)}
+          onVolumeChange={(v) => piano.setVolume(v / 100)}
         />
 
         <SoundTileWithSlider
           label='Synth'
           on={cafe.on}
           onToggle={cafe.toggle}
-          volume={Math.round(vinyl.volume * 100)}
-          onVolumeChange={(v) => vinyl.setVolume(v / 100)}
+          volume={Math.round(cafe.volume * 100)}
+          onVolumeChange={(v) => cafe.setVolume(v / 100)}
         />
 
         <SoundTileWithSlider
           label='Keyboard Clacks'
           on={keyboard.on}
           onToggle={keyboard.toggle}
-          volume={Math.round(vinyl.volume * 100)}
-          onVolumeChange={(v) => vinyl.setVolume(v / 100)}
+          volume={Math.round(keyboard.volume * 100)}
+          onVolumeChange={(v) => keyboard.setVolume(v / 100)}
         />
 
-        {/* SAVE BUTTON */}
+        {/* SAVE BUTTON
         <PrimaryButton onClick={() => alert("Mix saved!")}>
           Save Mix
-        </PrimaryButton>
+        </PrimaryButton> */}
       </GlassPanel>
     </main>
   );
