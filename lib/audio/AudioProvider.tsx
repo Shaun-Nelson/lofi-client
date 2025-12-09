@@ -38,9 +38,13 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({
   const [sounds, setSounds] = useState<SoundStateMap>(defaultState);
 
   const engineRef = useRef<AudioEngine | null>(null);
-  if (typeof window !== "undefined" && !engineRef.current) {
-    engineRef.current = new AudioEngine();
-  }
+
+  // Initialize audio engine once on mount
+  useEffect(() => {
+    if (engineRef.current == null) {
+      engineRef.current = new AudioEngine();
+    }
+  }, []);
 
   const ensureEngineStarted = useCallback(async () => {
     if (!engineRef.current) return;

@@ -1,9 +1,11 @@
 // components/ui/SoundTileWithSlider.tsx
 "use client";
 
-import React from "react";
+import { useState } from "react";
+
 import Toggle from "./Toggle";
 import GradientSlider from "./GradientSlider";
+import SoundTile from "./SoundTile";
 
 type SoundTileWithSliderProps = {
   label: string;
@@ -22,29 +24,54 @@ const SoundTileWithSlider: React.FC<SoundTileWithSliderProps> = ({
   onVolumeChange,
   className,
 }) => {
-  return (
-    <div
-      className={[
-        "glass-tile px-6 py-5 flex flex-col gap-4",
-        className ?? "",
-      ].join(" ")}
-    >
-      <div className='flex items-center justify-between'>
-        <span className='text-[16px] font-medium text-text-on-glass'>
-          {label}
-        </span>
-        <Toggle on={on} onChange={onToggle} />
-      </div>
+  const [isActiveTile, setIsActiveTile] = useState(false);
 
-      <div className='flex flex-col gap-1'>
-        <span className='text-[13px] text-text-secondary'>Volume</span>
-        <GradientSlider
-          value={volume}
-          onChange={onVolumeChange}
-          disabled={!on}
+  const setActiveTile = () => {
+    setIsActiveTile(!isActiveTile);
+  };
+
+  return (
+    <>
+      {isActiveTile ? (
+        <div
+          className={[
+            "glass-tile px-6 py-5 flex flex-col gap-4",
+            className ?? "",
+          ].join(" ")}
+        >
+          <div className='flex items-center justify-between'>
+            <span className='text-[16px] font-medium text-text-on-glass'>
+              {label}
+            </span>
+            <Toggle
+              on={on}
+              onChange={() => {
+                onToggle();
+                setActiveTile();
+              }}
+            />
+          </div>
+
+          <div className='flex flex-col gap-1'>
+            <span className='text-[13px] text-text-secondary'>Volume</span>
+            <GradientSlider
+              value={volume}
+              onChange={onVolumeChange}
+              disabled={!on}
+            />
+          </div>
+        </div>
+      ) : (
+        <SoundTile
+          label={label}
+          on={on}
+          onToggle={() => {
+            onToggle();
+            setActiveTile();
+          }}
         />
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

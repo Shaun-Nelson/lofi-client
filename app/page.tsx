@@ -1,105 +1,92 @@
 "use client";
 
-import { useState } from "react";
-import Toggle from "@/components/Toggle";
-import GradientSlider from "@/components/GradientSlider";
+import PageHeader from "@/components/layout/PageHeader";
+import GlassPanel from "@/components/layout/GlassPanel";
+
+import SoundTileWithSlider from "@/components/ui/SoundTileWithSlider";
+import PrimaryButton from "@/components/ui/PrimaryButton";
+
+import { useSound } from "@/lib/audio/useSound";
+import { useAudioContext } from "@/lib/audio/AudioProvider";
+
+import { Sound } from "@/types/sound";
 
 export default function HomePage() {
-  // -----------------------------
-  // Local State for UI demo
-  // (Hook up audio engine later)
-  // -----------------------------
+  const { ensureEngineStarted } = useAudioContext();
 
-  const [rainOn, setRainOn] = useState(false);
-  const [rainVolume, setRainVolume] = useState(50);
+  const rain = useSound("drums");
+  const vinyl = useSound("guitar");
+  const piano = useSound("piano");
+  const cafe = useSound("synth");
+  const keyboard = useSound("keyboard");
 
-  const [vinylOn, setVinylOn] = useState(false);
-  const [pianoOn, setPianoOn] = useState(false);
+  // Start the audio context on first user tap
+  const handleStartAudio = async () => {
+    await ensureEngineStarted();
+  };
 
-  const [cafeOn, setCafeOn] = useState(false);
-  const [birdsOn, setBirdsOn] = useState(false);
-
-  const [keyboardOn, setKeyboardOn] = useState(false);
+  const handleToggle = (sound: Sound) => {
+    sound.toggle();
+  };
 
   return (
-    <main className='tiny-lofi-bg min-h-screen flex items-center justify-center px-6 py-12'>
-      {/* GLASS PANEL WRAPPER */}
-      <div className='glass-panel max-w-[480px] w-full px-8 py-10 flex flex-col gap-10'>
-        {/* HEADER */}
-        <header className='text-center'>
-          <h1 className='text-[32px] font-semibold tracking-tight text-text-on-glass'>
-            Tiny Lo-Fi Machine
-          </h1>
-          <p className='mt-1 text-[16px] text-text-secondary'>
-            Focus Better. Feel Better.
-          </p>
-        </header>
+    <main
+      className='tiny-lofi-bg min-h-screen flex items-center justify-center px-6 py-12'
+      onClick={handleStartAudio} // first gesture activates audio engine
+    >
+      <GlassPanel>
+        <PageHeader
+          title='Tiny Lo-Fi Machine'
+          subtitle='Focus Better. Feel Better.'
+        />
 
         {/* FEATURED SOUND: Rain */}
-        <div className='glass-tile px-6 py-5 flex flex-col gap-4'>
-          <div className='flex items-center justify-between'>
-            <span className='text-[16px] font-medium text-text-on-glass'>
-              Rain
-            </span>
-
-            <Toggle on={rainOn} onChange={() => setRainOn(!rainOn)} />
-          </div>
-
-          <div className='flex flex-col gap-1'>
-            <span className='text-[13px] text-text-secondary'>Volume</span>
-            <GradientSlider
-              value={rainVolume}
-              onChange={(v) => setRainVolume(v)}
-              disabled={!rainOn}
-            />
-          </div>
-        </div>
+        <SoundTileWithSlider
+          label='Drums'
+          on={rain.on}
+          onToggle={() => handleToggle(rain)}
+          volume={Math.round(rain.volume * 100)}
+          onVolumeChange={(v) => rain.setVolume(v / 100)}
+        />
 
         {/* ROW: Vinyl / Piano */}
-        <div className='grid grid-cols-2 gap-4'>
-          <div className='glass-tile px-5 py-4 flex items-center justify-between'>
-            <span className='text-[15px] font-medium text-text-on-glass'>
-              Vinyl Crackle
-            </span>
-            <Toggle on={vinylOn} onChange={() => setVinylOn(!vinylOn)} />
-          </div>
+        <SoundTileWithSlider
+          label='Guitar'
+          on={vinyl.on}
+          onToggle={() => handleToggle(vinyl)}
+          volume={Math.round(vinyl.volume * 100)}
+          onVolumeChange={(v) => vinyl.setVolume(v / 100)}
+        />
 
-          <div className='glass-tile px-5 py-4 flex items-center justify-between'>
-            <span className='text-[15px] font-medium text-text-on-glass'>
-              Piano
-            </span>
-            <Toggle on={pianoOn} onChange={() => setPianoOn(!pianoOn)} />
-          </div>
-        </div>
+        <SoundTileWithSlider
+          label='Piano'
+          on={piano.on}
+          onToggle={piano.toggle}
+          volume={Math.round(vinyl.volume * 100)}
+          onVolumeChange={(v) => vinyl.setVolume(v / 100)}
+        />
 
-        {/* ROW: Cafe / Birds */}
-        <div className='grid grid-cols-2 gap-4'>
-          <div className='glass-tile px-5 py-4 flex items-center justify-between'>
-            <span className='text-[15px] font-medium text-text-on-glass'>
-              Cafe Noise
-            </span>
-            <Toggle on={cafeOn} onChange={() => setCafeOn(!cafeOn)} />
-          </div>
+        <SoundTileWithSlider
+          label='Synth'
+          on={cafe.on}
+          onToggle={cafe.toggle}
+          volume={Math.round(vinyl.volume * 100)}
+          onVolumeChange={(v) => vinyl.setVolume(v / 100)}
+        />
 
-          <div className='glass-tile px-5 py-4 flex items-center justify-between'>
-            <span className='text-[15px] font-medium text-text-on-glass'>
-              Birds
-            </span>
-            <Toggle on={birdsOn} onChange={() => setBirdsOn(!birdsOn)} />
-          </div>
-        </div>
-
-        {/* FULL TILE: Keyboard Clacks */}
-        <div className='glass-tile px-5 py-4 flex items-center justify-between'>
-          <span className='text-[15px] font-medium text-text-on-glass'>
-            Keyboard Clacks
-          </span>
-          <Toggle on={keyboardOn} onChange={() => setKeyboardOn(!keyboardOn)} />
-        </div>
+        <SoundTileWithSlider
+          label='Keyboard Clacks'
+          on={keyboard.on}
+          onToggle={keyboard.toggle}
+          volume={Math.round(vinyl.volume * 100)}
+          onVolumeChange={(v) => vinyl.setVolume(v / 100)}
+        />
 
         {/* SAVE BUTTON */}
-        <button className='btn-primary w-full'>Save Mix</button>
-      </div>
+        <PrimaryButton onClick={() => alert("Mix saved!")}>
+          Save Mix
+        </PrimaryButton>
+      </GlassPanel>
     </main>
   );
 }
