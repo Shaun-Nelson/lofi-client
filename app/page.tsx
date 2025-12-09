@@ -12,10 +12,13 @@ import { Sound } from "@/types/sound";
 export default function HomePage() {
   const { ensureEngineStarted } = useAudioContext();
 
-  const rain = useSound("drums");
-  const vinyl = useSound("guitar");
+  const drums = useSound("drums");
+  const rain = useSound("rain");
+  const vinyl = useSound("vinyl");
   const piano = useSound("piano");
-  const cafe = useSound("synth");
+  const pad = useSound("pad");
+  const melody1 = useSound("melody1");
+  const melody2 = useSound("melody2");
   const keyboard = useSound("keyboard");
 
   // Start the audio context on first user tap
@@ -37,18 +40,26 @@ export default function HomePage() {
 
         <SoundTileWithSlider
           label='Drums'
-          on={rain.on}
-          onToggle={() => handleToggle(rain)}
-          volume={Math.round(rain.volume * 100)}
-          onVolumeChange={(v) => rain.setVolume(v / 100)}
+          on={drums.on}
+          onToggle={() => handleToggle(drums)}
+          volume={Math.round(drums.volume * 100)}
+          onVolumeChange={(v) => drums.setVolume(v / 100)}
         />
 
         <SoundTileWithSlider
-          label='Guitar'
+          label='Vinyl'
           on={vinyl.on}
           onToggle={() => handleToggle(vinyl)}
           volume={Math.round(vinyl.volume * 100)}
           onVolumeChange={(v) => vinyl.setVolume(v / 100)}
+        />
+
+        <SoundTileWithSlider
+          label='Rain'
+          on={rain.on}
+          onToggle={() => handleToggle(rain)}
+          volume={Math.round(rain.volume * 100)}
+          onVolumeChange={(v) => rain.setVolume(v / 100)}
         />
 
         <SoundTileWithSlider
@@ -60,11 +71,27 @@ export default function HomePage() {
         />
 
         <SoundTileWithSlider
-          label='Synth'
-          on={cafe.on}
-          onToggle={cafe.toggle}
-          volume={Math.round(cafe.volume * 100)}
-          onVolumeChange={(v) => cafe.setVolume(v / 100)}
+          label='Pad FX'
+          on={pad.on}
+          onToggle={() => handleToggle(pad)}
+          volume={Math.round(pad.volume * 100)}
+          onVolumeChange={(v) => pad.setVolume(v / 100)}
+        />
+
+        <SoundTileWithSlider
+          label='Melody 1'
+          on={melody1.on}
+          onToggle={() => handleToggle(melody1)}
+          volume={Math.round(melody1.volume * 100)}
+          onVolumeChange={(v) => melody1.setVolume(v / 100)}
+        />
+
+        <SoundTileWithSlider
+          label='Melody2'
+          on={melody2.on}
+          onToggle={() => handleToggle(melody2)}
+          volume={Math.round(melody2.volume * 100)}
+          onVolumeChange={(v) => melody2.setVolume(v / 100)}
         />
 
         <SoundTileWithSlider

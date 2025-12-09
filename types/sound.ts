@@ -1,4 +1,12 @@
-export type SoundId = "drums" | "guitar" | "piano" | "synth" | "keyboard";
+export type SoundId =
+  | "drums"
+  | "vinyl"
+  | "rain"
+  | "pad"
+  | "piano"
+  | "melody1"
+  | "melody2"
+  | "keyboard";
 
 export interface Sound {
   id: SoundId;
@@ -20,38 +28,50 @@ export const SOUND_DEFINITIONS: SoundDefinition[] = [
   {
     id: "drums",
     name: "Drums",
-    fileUrl: "/sounds/drums.mp3",
-    volume: 0.7,
+    fileUrl: "/sounds/drums.wav",
+    volume: 0.5,
   },
   {
-    id: "guitar",
-    name: "Guitar",
-    fileUrl: "/sounds/guitar.mp3",
-    volume: 0.5,
+    id: "vinyl",
+    name: "Vinyl",
+    fileUrl: "/sounds/vinyl.wav",
+    volume: 0.3,
+  },
+  {
+    id: "rain",
+    name: "Rain",
+    fileUrl: "/sounds/rain.wav",
+    volume: 0.1,
   },
   {
     id: "piano",
     name: "Piano",
-    fileUrl: "/sounds/piano.mp3",
+    fileUrl: "/sounds/piano.wav",
+    volume: 0.3,
+  },
+  {
+    id: "pad",
+    name: "Pad FX",
+    fileUrl: "/sounds/pad.wav",
+    volume: 0.4,
+  },
+  {
+    id: "melody1",
+    name: "Melody 1",
+    fileUrl: "/sounds/melody1.wav",
     volume: 0.5,
   },
   {
-    id: "synth",
-    name: "Synth",
-    fileUrl: "/sounds/synth.mp3",
-    volume: 0.4,
+    id: "melody2",
+    name: "Melody 2",
+    fileUrl: "/sounds/melody2.wav",
+    volume: 0.5,
   },
   {
     id: "keyboard",
     name: "Keyboard Clacks",
     fileUrl: "/sounds/keyboard.mp3",
-    volume: 0.4,
-  },
-  {
-    id: "keyboard",
-    name: "Keyboard Clacks",
-    fileUrl: "/sounds/keyboard.mp3",
-    volume: 0.5,
+    volume: 0.2,
   },
 ];
 
