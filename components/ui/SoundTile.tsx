@@ -24,7 +24,7 @@ const SoundTile: React.FC<SoundTileProps> = ({
         className ?? "",
       ].join(" ")}
     >
-      <span className='text-[15px] font-medium text-text-on-glass'>
+      <span className='text-[20px] font-medium text-text-on-glass'>
         {label}
       </span>
       <Toggle on={on} onChange={onToggle} />

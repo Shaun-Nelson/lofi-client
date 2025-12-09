@@ -40,7 +40,7 @@ const SoundTileWithSlider: React.FC<SoundTileWithSliderProps> = ({
           ].join(" ")}
         >
           <div className='flex items-center justify-between'>
-            <span className='text-[16px] font-medium text-text-on-glass'>
+            <span className='text-[22px] font-medium text-text-on-glass'>
               {label}
             </span>
             <Toggle
