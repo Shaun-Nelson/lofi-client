@@ -17,12 +17,10 @@ const PageHeader: React.FC<PageHeaderProps> = ({
   const textAlign = align === "center" ? "text-center" : "text-left";
   return (
     <header className={textAlign}>
-      <h1 className='text-[32px] font-semibold tracking-tight text-text-on-glass'>
+      <h1 className='text-[32px] font-semibold tracking-tight text-white/80'>
         {title}
       </h1>
-      {subtitle && (
-        <p className='mt-1 text-[16px] text-text-secondary'>{subtitle}</p>
-      )}
+      {subtitle && <p className='mt-1 text-[16px] text-white/50'>{subtitle}</p>}
     </header>
   );
 };
